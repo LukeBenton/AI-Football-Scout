@@ -1,0 +1,16 @@
+[server]
+# Increase headless timeout for Streamlit Cloud (default is 30s)
+headless = true
+maxUploadSize = 50
+
+[browser]
+# Gather usage analytics for better performance
+gatherUsageStats = false
+
+[theme]
+# Optional: Set a theme for better appearance
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"

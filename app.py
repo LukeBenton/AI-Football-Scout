@@ -42,17 +42,34 @@ with st.expander("📖 How to use this app & Dataset Requirements"):
     """)
 
 # Load the saved models and scalers and cache them to improve performance
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def load_ai_models():
-    models = joblib.load("scouting_models.pkl")
-    scalers = joblib.load("tactical_scalers.pkl")
+    import os
+    import glob
+    
+    # Debug: List all files in the current directory
+    current_dir = os.getcwd()
+    files = os.listdir(current_dir)
+    
+    model_path = "scouting_models.pkl"
+    scaler_path = "tactical_scalers.pkl"
+    
+    # Check if files exist
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"'{model_path}' not found in {current_dir}. Files in directory: {files}")
+    if not os.path.exists(scaler_path):
+        raise FileNotFoundError(f"'{scaler_path}' not found in {current_dir}. Files in directory: {files}")
+    
+    models = joblib.load(model_path)
+    scalers = joblib.load(scaler_path)
     return models, scalers
 
-try:
-    models, scalers = load_ai_models()
-except Exception as e:
-    st.error(f"⚠️ Could not load models. Make sure 'scouting_models.pkl' and 'tactical_scalers.pkl' are in the same folder as this app. Error: {e}")
-    st.stop()
+with st.spinner("Loading AI models..."):
+    try:
+        models, scalers = load_ai_models()
+    except Exception as e:
+        st.error(f"⚠️ Could not load models. Make sure 'scouting_models.pkl' and 'tactical_scalers.pkl' are committed to your repo. Error: {e}")
+        st.stop()
 
 # Sidebar UI
 st.sidebar.header("Scouting Parameters")
@@ -104,7 +121,11 @@ if uploaded_file is not None or st.session_state.use_demo_data:
         st.session_state.use_demo_data = False
     else:
         # Load the demo dataset
-        df = pd.read_csv("Combined_Dataset_Final.csv")
+        try:
+            df = pd.read_csv("Combined_Dataset_Final.csv")
+        except FileNotFoundError:
+            st.error("⚠️ Demo dataset 'Combined_Dataset_Final.csv' not found. Please upload your own CSV file.")
+            st.stop()
         st.sidebar.success("Demo dataset loaded successfully!")
 
     # Deal with blank columns titles (e.g. player name not having a title like in the demo dataset)

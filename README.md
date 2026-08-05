@@ -1,6 +1,6 @@
 # ⚽ AI Football Scout
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black.svg)](YOUR_STREAMLIT_APP_LINK_HERE)
+[[Streamlit App]](YOUR_STREAMLIT_APP_LINK_HERE)
 
 A machine learning-powered tool that analyses player event data and identifies statistical fits for specific tactical systems. Upload your data, select a position and playing style, and the AI will recommend the best-matching players from your dataset.
 
@@ -98,5 +98,3 @@ AI-Football-Scout/
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
-
-Made with ❤️ for football analytics enthusiasts

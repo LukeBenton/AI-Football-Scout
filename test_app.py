@@ -1,4 +1,5 @@
 import streamlit as st
 
-st.title("Test App")
-st.write("Hello from Streamlit Cloud!")
+st.title("🏈 AI Football Scout")
+st.write("This is a test!")
+st.info("If you see this, Streamlit Cloud is working!")

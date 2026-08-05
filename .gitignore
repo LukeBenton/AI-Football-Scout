@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Data files that may be large or regenerated
+# NOTE: scouting_models.pkl, tactical_scalers.pkl, and Combined_Dataset_Final.csv
+# are REQUIRED by the app — do NOT delete them
+# (Large data files can be excluded if you use Git LFS instead)
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

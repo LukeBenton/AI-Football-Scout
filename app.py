@@ -41,35 +41,46 @@ with st.expander("📖 How to use this app & Dataset Requirements"):
     *This model was trained using the Statsbomb open database which is very limited. A lot of the training data is from 2015/2016 so results may not be perfect if more modern datasets are loaded. The demo dataset also uses this data, and may copies of the same player from different seasons.*
     """)
 
-# Load the saved models and scalers and cache them to improve performance
-@st.cache_resource(show_spinner=False)
-def load_ai_models():
-    import os
-    import glob
-    
-    # Debug: List all files in the current directory
-    current_dir = os.getcwd()
-    files = os.listdir(current_dir)
-    
-    model_path = "scouting_models.pkl"
-    scaler_path = "tactical_scalers.pkl"
-    
-    # Check if files exist
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"'{model_path}' not found in {current_dir}. Files in directory: {files}")
-    if not os.path.exists(scaler_path):
-        raise FileNotFoundError(f"'{scaler_path}' not found in {current_dir}. Files in directory: {files}")
-    
-    models = joblib.load(model_path)
-    scalers = joblib.load(scaler_path)
-    return models, scalers
+# Initialize models in session state (lazy loading)
+if 'models_loaded' not in st.session_state:
+    st.session_state.models_loaded = False
+    st.session_state.models = None
+    st.session_state.scalers = None
 
-with st.spinner("Loading AI models..."):
-    try:
-        models, scalers = load_ai_models()
-    except Exception as e:
-        st.error(f"⚠️ Could not load models. Make sure 'scouting_models.pkl' and 'tactical_scalers.pkl' are committed to your repo. Error: {e}")
-        st.stop()
+def load_models_lazy():
+    """Load models on first use, not at startup"""
+    import os
+    
+    if st.session_state.models_loaded:
+        return st.session_state.models, st.session_state.scalers
+    
+    with st.spinner("Loading AI models (this may take a moment)..."):
+        try:
+            model_path = "scouting_models.pkl"
+            scaler_path = "tactical_scalers.pkl"
+            
+            if not os.path.exists(model_path):
+                raise FileNotFoundError(f"'{model_path}' not found")
+            if not os.path.exists(scaler_path):
+                raise FileNotFoundError(f"'{scaler_path}' not found")
+            
+            import time
+            start = time.time()
+            
+            models = joblib.load(model_path)
+            scalers = joblib.load(scaler_path)
+            
+            elapsed = time.time() - start
+            st.session_state.models = models
+            st.session_state.scalers = scalers
+            st.session_state.models_loaded = True
+            
+            return models, scalers
+            
+        except Exception as e:
+            raise Exception(f"Failed to load models: {e}")
+
+# Remove the module-level loading - models are loaded lazily when user interacts
 
 # Sidebar UI
 st.sidebar.header("Scouting Parameters")
@@ -175,6 +186,13 @@ if uploaded_file is not None or st.session_state.use_demo_data:
     if position_df.empty:
         st.warning(f"No {selected_position}s found in the uploaded dataset.")
     else:
+        # Load models on first use (lazy loading)
+        try:
+            models, scalers = load_models_lazy()
+        except Exception as e:
+            st.error(f"⚠️ Could not load models: {e}")
+            st.stop()
+        
         # Grab the correct features, model, and scaler based on dropdowns
         active_features = positional_features[selected_position]
         active_model = models[selected_position][selected_style]

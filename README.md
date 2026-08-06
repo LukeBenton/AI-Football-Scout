@@ -89,7 +89,7 @@ AI-Football-Scout/
 
 ## 📈 Data Source
 
-The data used in this project is provided by StatsBomb. Full access to the StatsBomb Open Data repository can be found here. If visualisations are generated from this data, the StatsBomb logo must be included as per their user agreement.
+The data used in this project is provided by StatsBomb. Full access to the StatsBomb Open Data repository can be found [here](https://github.com/hudl/open-data). If visualisations are generated from this data, the StatsBomb logo must be included as per their user agreement.
 
 ## 🙏 Acknowledgments
 This project was submitted as my Final Year Project at the University of Lancashire.

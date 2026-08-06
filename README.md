@@ -87,6 +87,17 @@ AI-Football-Scout/
 
 > **Note:** Training data includes StatsBomb open database records, primarily from the 2015/2016 season. Results may vary when applied to more modern datasets.
 
+## 📈 Data Source
+
+The data used in this project is provided by StatsBomb. Full access to the StatsBomb Open Data repository can be found here. If visualisations are generated from this data, the StatsBomb logo must be included as per their user agreement.
+
+## 🙏 Acknowledgments
+This project was submitted as my Final Year Project at the University of Lancashire.
+
+I would like to thank my academic supervisor for their excellent academic guidance, feedback on my technical reports, and high-level project direction.
+
+All source code and implementation in this repository is my own original work.
+
 ## 📝 License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

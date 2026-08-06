@@ -4,12 +4,6 @@
 
 A machine learning-powered tool that analyses player event data and identifies statistical fits for specific tactical systems. Upload your data, select a position and playing style, and the AI will recommend the best-matching players from your dataset.
 
-## 🌟 Live Demo
-
-Try it out without setting up anything locally:
-
-👉 **[Launch AI Football Scout]([https://ai-football-scout-zuqzqe3auivnzsfmvavgdh.streamlit.app/)**
-
 ## ✨ Features
 
 - **Position-Aware Scouting** — Find fits for Defenders, Midfielders, and Attackers

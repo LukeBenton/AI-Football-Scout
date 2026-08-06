@@ -8,7 +8,7 @@ A machine learning-powered tool that analyses player event data and identifies s
 
 Try it out without setting up anything locally:
 
-👉 **[Launch AI Football Scout](YOUR_STREAMLIT_APP_LINK_HERE)**
+👉 **[Launch AI Football Scout]([https://ai-football-scout-zuqzqe3auivnzsfmvavgdh.streamlit.app/)**
 
 ## ✨ Features
 
